@@ -1,4 +1,4 @@
-# Python Telegram Bot using Pyrogram
+# Simple IP Finder Bot 🔍 Using Pyrogram
 
 ## Introduction
 This project is a Telegram Bot built with Python using the Pyrogram library. It is designed to showcase how to implement various features such as command handling, message processing, and user interactions within Telegram. The bot is capable of performing tasks like responding to specific commands, managing groups, and providing user support.
