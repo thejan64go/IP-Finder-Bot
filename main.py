@@ -1,12 +1,13 @@
 #නමෝ බුද්ධාය | තෙරුවන් සරණයි 
+#Welcome To Ip Finder Bot
 
+#Import All Libraries 
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup,InlineQuery,InlineQueryResultPhoto
 import ipinfo,ipaddress
 import logging
-import random,decimal,time
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
-import config  # Importing the config module
+import config
 import json
 from pyrogram.enums import ChatType
 from pyrogram import enums
