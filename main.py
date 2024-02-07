@@ -1,19 +1,16 @@
-#නමෝ බුද්ධාය | තෙඋවන් සරණයි 
+#නමෝ බුද්ධාය | තෙරුවන් සරණයි 
 
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup,InlineQuery,InputTextMessageContent, InlineQueryResultArticle, InlineQueryResultPhoto
-import ipinfo
-import ipaddress
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup,InlineQuery,InlineQueryResultPhoto
+import ipinfo,ipaddress
 import logging
 import random,decimal,time
-from pyrogram.errors import UserIsBlocked,FloodWait,PeerIdInvalid
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 import config  # Importing the config module
 import json
 from pyrogram.enums import ChatType
 from pyrogram import enums
 import requests
-from bs4 import BeautifulSoup
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -57,41 +54,6 @@ async def start_handler(client: Client, message: Message):
             with open(json_file, "w") as file:
                 json.dump(user_ids, file)
 
-@app.on_message(filters.command('fbc')& filters.private)
-def broadcast_message(client, message):
-    x = float(decimal.Decimal(random.randrange(60, 100)) / 100)
-    admin_user_ids = [1892297704]
-    if message.from_user.id not in admin_user_ids:
-        return()
-    with open(json_file, 'r') as f:
-        user_ids = json.load(f)
-    count = len(user_ids)
-    app.send_message(chat_id=1892297704,text=f"Broadcast Started✅")
-
-    if message.reply_to_message:
-        message_count = 0
-        # Function to forward the message to a single user ID
-        def forward_message(user_id):
-            nonlocal message_count
-            try:
-                message.reply_to_message.forward(user_id)
-                message_count += 1
-                time.sleep(x)
-            except FloodWait as ex:
-                time.sleep(x)
-            except UserIsBlocked:
-                print(f"User {user_id} has blocked the bot. Skipping...")
-                time.sleep(x)
-            except Exception as e:
-                print(f"An unexpected error occurred for user {user_id}. Skipping...")
-                time.sleep(x)
-        for user_id in user_ids:
-            forward_message(user_id)
-            time.sleep(x)
-        total=count
-        sent=message_count
-        faild=count-message_count
-        message.reply_text(f"Broadcast completed.✅\n\n🙋‍♂️ All Users : {total}\n\n✉️ Sent Count : {sent}\n\n❌ FaildCount : {faild}")
 
 #stats Countdown Command
 @app.on_message(filters.command("stats"))
