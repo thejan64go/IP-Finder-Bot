@@ -32,22 +32,38 @@ https://maps.locationiq.com/v3/staticmap?key=YOUR_LOCATIONIQ_API_KEY&center=LATI
 
 ## ⚙️ Installation
 
-### 📋 Prerequisites
-- Python 3.6+ 🐍
-- Telegram Bot Token 🤖
-- IPinfo API [token](https://ipinfo.io/) 🔑
+To use this bot, you need to have Python installed on your machine along with some specific libraries. Follow the steps below to set up and run the bot:
 
-### 📦 Required Libraries
-```
-pip install pyrogram ipinfo requests
-```
+### 📋 Prerequisites
+- Python 3.6 or newer 🐍
+- A Telegram Bot Token 🤖 (obtained from [BotFather](https://t.me/botfather))
+- An IPinfo API token 🔑 (obtain from [IPinfo](https://ipinfo.io/))
+
+### 📚 Required Libraries
+- `pyrogram` - A modern, elegant, and asynchronous Telegram MTProto API framework 🚀.
+- `ipinfo` - For fetching IP details 🌍.
+- `requests` - For making HTTP requests 🌐.
 
 ### 🔧 Installation Steps
-1. Clone/download the script.
-2. Install required Python libraries: `pip install pyrogram ipinfo requests`.
-3. Create a `config.py` with your API ID, API HASH, Bot Token, and IPinfo Access Token.
-4. Run the bot: `python your_script_name.py`.
+1. Clone this repository or download the script 📁.
+2. Install the required Python libraries using pip:
+    ```
+    pip install pyrogram ipinfo requests
+    ```
+3. Create a `config.py` file in the same directory as the script with the following content, replacing `YOUR_API_ID`, `YOUR_API_HASH`, `YOUR_BOT_TOKEN`, and `YOUR_IPINFO_ACCESS_TOKEN` with your actual details:
+    ```python
+    class con:
+        API_ID = 'YOUR_API_ID'  # Your API ID (as a string) 🆔
+        API_HASH = 'YOUR_API_HASH'  # Your API Hash (as a string) 🔐
+        BOT_TOKEN = 'YOUR_BOT_TOKEN'  # Your Bot Token (as a string) 🤖
+        IP_API = 'YOUR_IPINFO_ACCESS_TOKEN'  # Your IPinfo Access Token (as a string) 🔑
+    ```
+4. Run the bot 🏃‍♂️:
+    ```
+    python your_script_name.py
+    ```
 
+---
 ## 📖 Usage
 - **Start the Bot**: Send `/start` to see the welcome message 🚀.
 - **Find IP Information**: Send any IP address 📧.
