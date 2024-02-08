@@ -166,93 +166,9 @@ async def callback_handler(client, query):
                     )
         except:
             await app.answer_callback_query(query.id, text='🍀Daily Lookup Limit Exceeded\n Please Try Again Later', show_alert=True)
-    elif  data == "selection2":
-        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('🤖 IP ҒIΠDΣR BOT 🔎', url='https://t.me/IPfinderobo_bot')]])
 
-        try:
-            if user_id in ip_data:
-                ip_info = ip_data[user_id]
-                url = f"https://scamalytics.com/ip/{ip_info['ip_address']}"
-                response = requests.get(url)
-                if response.status_code == 200:
-                    # Parse the HTML content of the page
-                    soup = BeautifulSoup(response.text, 'html.parser')
-
-                    # Find the table
-                    table = soup.find('table')
-
-                    if table:
-                        data = {}  # Create a dictionary to store the data
-
-                        # Iterate through the rows of the table
-                        for row in table.find_all('tr'):
-                            # Find the header cell (th) and data cell (td) in each row
-                            header_cell = row.find('th')
-                            data_cell = row.find('td')
-
-                            if header_cell and data_cell:
-                                # Extract the text from the header and data cells
-                                header = header_cell.get_text(strip=True)
-                                value = data_cell.get_text(strip=True)
-
-                                # Store the data in the dictionary
-                                data[header] = value
-                        
-                        HTTP_80 = data.get('HTTP80/http', '')
-                        SSL_443 = data.get('SSL443/ssl/http', '')
-                        HTTP_PROXY_8080 = data.get('HTTP-PROXY8080/http-proxy', '')
-                        OPSMESSAGING_8090 = data.get('OPSMESSAGING8090/opsmessaging', '')
-                        TOR_ORPORT_9001 = data.get('TOR-ORPORT9001/tor-orport', '')
-                        TCP_9030 = data.get('TCP9030/tcp/udp', '')
-                        SSH_22 = data.get('SSH22/ssh', '')
-                        
-                        await app.delete_messages(chat_id=chat_id, message_ids=message_id)
-                        await app.send_photo(chat_id=chat_id,photo="https://telegra.ph/file/dba626143ccfea3c4d718.jpg",caption=f"🧩 Port Checker 🎲\n\n🛰IP ➤ {ip_info['ip_address']}\n🌐80/HTTP ➤{HTTP_80}\n🛜443/SSL/HTTP ➤ {SSL_443}\n👁‍🗨TOR-ORPORT:9001 ➤ {TOR_ORPORT_9001}\n〽️9030/TCP/UDP ➤ {TCP_9030}\n🔰22/SSH ➤ {SSH_22}\n💠8080/HTTP-PROXY ➤ {HTTP_PROXY_8080}\n🔅8090/OPSMESSAGING ➤ {OPSMESSAGING_8090}\n\n🔥Powered By @Codex_SL 🇱🇰",reply_markup=reply_markup)                              
-        except:
-            await app.answer_callback_query(query.id, text='🍀Daily Lookup Limit Exceeded\n Please Try Again Later', show_alert=True)
-    
-    elif  data == "selection3":
-        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('🤖 IP ҒIΠDΣR BOT 🔎', url='https://t.me/IPfinderobo_bot')]])
-
-        try:
-            if user_id in ip_data:
-                ip_info = ip_data[user_id]
-                url = f"https://scamalytics.com/ip/{ip_info['ip_address']}"
-                response = requests.get(url)
-                if response.status_code == 200:
-                    # Parse the HTML content of the page
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    # Find the table
-                    table = soup.find('table')
-
-                    if table:
-                        data = {}  # Create a dictionary to store the data
-
-                        # Iterate through the rows of the table
-                        for row in table.find_all('tr'):
-                            # Find the header cell (th) and data cell (td) in each row
-                            header_cell = row.find('th')
-                            data_cell = row.find('td')
-
-                            if header_cell and data_cell:
-                                # Extract the text from the header and data cells
-                                header = header_cell.get_text(strip=True)
-                                value = data_cell.get_text(strip=True)
-
-                                # Store the data in the dictionary
-                                data[header] = value
-                        
-                        Hostname = data.get('Hostname', '')
-                        ASN = data.get('ASN', '')
-                        ISP_Name = data.get('ISP Name', '')
-                        Organization_Name = data.get('Organization Name', '')
-                        
-                        await app.delete_messages(chat_id=chat_id, message_ids=message_id)
-                        await app.send_photo(chat_id=chat_id,photo="https://telegra.ph/file/dba626143ccfea3c4d718.jpg",caption=f"🌐 Host Founded 🔎\n\n🛰IP ➤ {ip_info['ip_address']}\n🌐Host Name ➤ {Hostname}\n🛜ASN ➤ {ASN}\n💠ISP ➤ {ISP_Name}\n🔅Organization ➤ {Organization_Name}\n\n🔥Powered By @Codex_SL 🇱🇰",reply_markup=reply_markup)                              
-        except:
-            await app.answer_callback_query(query.id, text='🍀Daily Lookup Limit Exceeded\n Please Try Again Later', show_alert=True)
-
-
+#removed inline
+            
 
 @app.on_inline_query()
 async def inline_query_handler(client: Client, query: InlineQuery):
