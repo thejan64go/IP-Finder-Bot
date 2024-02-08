@@ -1,5 +1,4 @@
 #නමෝ බුද්ධාය | තෙරුවන් සරණයි 
-#Welcome To Ip Finder Bot
 
 #Import All Libraries 
 from pyrogram import Client, filters
@@ -17,9 +16,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 
 # Create a logger object
 logger = logging.getLogger(__name__)
-
-owner_id="1892297704"
-
 json_file = "/ip-bot/user_ids.json"
 try:
     with open(json_file, "r") as file:
@@ -39,17 +35,29 @@ app = Client(
 @app.on_message(filters.command("start")& filters.private)
 async def start_handler(client: Client, message: Message):
     user_id = message.from_user.id
-    try:
-        if message.chat.type == ChatType.PRIVATE:
-            await client.get_chat_member("@Codex_SL", user_id)
-            await client.forward_messages(from_chat_id=-1001611644771, message_ids=47,chat_id=message.chat.id)
-            await client.forward_messages(from_chat_id=-1001611644771, message_ids=48,chat_id=message.chat.id)
+    await app.send_photo(chat_id=message.chat.id,photo="https://te.legra.ph/file/c2e0b27bf45dcaa104633.jpg",caption='''
+👋 Hello There, 
 
-        else:
-            await client.get_chat_member("@Codex_SL", user_id)
-            await client.forward_messages(from_chat_id=-1001691840808, message_ids=47,chat_id=message.chat.id)
-    except UserNotParticipant:
-            await client.forward_messages(from_chat_id=-1001611644771,message_ids=38,chat_id=message.from_user.id)    
+🤖 I'm IP FINDER BOT⚡️
+💫Send Any Ip Address To Me 
+🥳 I'm Also IPV6 Supported 
+☘️ Inline Mode
+😎Check IP Risk Level
+✅ 24x7 Active
+🚀 Deployed On Faster VPS
+
+😎 We all been in that moment when a device logged in to your account and you have no idea what that is or who that is. Well now you can use IP Finder bot to find 👀 Who The Hell Was That and Where The Hell Was Him at that time. All you need is that ip address only. Just give it a try🥳
+
+🧑‍💻How To Use: Start the bot and send any IP address to it. It's so esay✌️
+
+◇───────────────◇
+
+👨‍💻 Developer: @Error_316 ✅
+
+👨‍💻Powered By @Codex_SL 🇱🇰
+
+◇───────────────◇''')
+   
     if user_id not in user_ids:
             user_ids.append(user_id)
             with open(json_file, "w") as file:
@@ -122,53 +130,6 @@ async def get_ip(client: Client, message: Message):
         return
     
 
-@app.on_callback_query()
-async def callback_handler(client, query):
-    data = query.data
-    message_id = query.message.id
-    chat_id = query.message.chat.id
-    user_id = query.from_user.id
-
-    if data == "selection1":
-        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('‍🔥Codex SL 🇱🇰', url='https://t.me/Codex_SL')],[InlineKeyboardButton('🤖 IP ҒIΠDΣR BOT 🔎', url='https://t.me/IPfinderobo_bot')]])
-        try:
-            if user_id in ip_data:
-                ip_info = ip_data[user_id]
-                url = f"https://scamalytics.com/ip/{ip_info['ip_address']}"
-                response = requests.get(url)
-
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    data = soup.find('pre', style="margin: 0; text-transform: lowercase;").text.strip()
-
-                    ip_info = json.loads(data)
-
-                    # Extract and print the IP score and risk
-                    ip = ip_info["ip"]
-                    score = ip_info["score"]
-                    risk = ip_info["risk"]
-                    description = soup.find('div', class_="panel_body").text.strip()
-
-                    # Check if the description is too long
-                    max_caption_length = 1000
-                    if len(description) > max_caption_length:
-                        caption = f"🛰 Your IP ➤ {ip}\n🔐 Risk Level ➤ {score}%\n⛔️ Risk Status ➤ {risk}"
-                    else:
-                        caption = f"🛰 Your IP ➤ {ip}\n🔐 Risk Level ➤ {score}%\n⛔️ Risk Status ➤ {risk}\n\n{description}"
-
-                    await app.delete_messages(chat_id=chat_id, message_ids=message_id)
-                    await client.copy_message(
-                        chat_id=chat_id,
-                        from_chat_id=-1001950197471,
-                        message_id=int(int(score) + 2),
-                        caption=caption,
-                        reply_markup=reply_markup
-                    )
-        except:
-            await app.answer_callback_query(query.id, text='🍀Daily Lookup Limit Exceeded\n Please Try Again Later', show_alert=True)
-
-#removed inline
-            
 
 @app.on_inline_query()
 async def inline_query_handler(client: Client, query: InlineQuery):
