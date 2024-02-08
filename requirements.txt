@@ -1,0 +1,5 @@
+pyrogram
+ipinfo
+ipaddress
+requests
+TgCrypto

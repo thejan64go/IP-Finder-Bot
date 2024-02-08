@@ -5,10 +5,8 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup,InlineQuery,InlineQueryResultPhoto
 import ipinfo,ipaddress
 import logging
-from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 import config
 import json
-from pyrogram.enums import ChatType
 from pyrogram import enums
 import requests
 
@@ -16,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 
 # Create a logger object
 logger = logging.getLogger(__name__)
-json_file = "/ip-bot/user_ids.json"
+json_file = "/ip-bot/user_ids.json" #path of  saving user id's list 
 try:
     with open(json_file, "r") as file:
         user_ids = json.load(file)
@@ -31,6 +29,10 @@ app = Client(
     api_id=config.con.API_ID,  # Accessing API_ID through the instance
     api_hash=config.con.API_HASH,  # Accessing API_HASH through the instance
     bot_token=config.con.BOT_TOKEN)  # Accessing BOT_TOKEN through the instance
+
+
+
+#◇────────────────────────────START COMMAND ─────────────────────────────◇
 
 @app.on_message(filters.command("start")& filters.private)
 async def start_handler(client: Client, message: Message):
@@ -57,7 +59,7 @@ async def start_handler(client: Client, message: Message):
 
 👨‍💻Powered By @Codex_SL 🇱🇰
 
-◇───────────────◇''',reply_markup=inline_keyboard1)
+◇───────────────◇''', reply_markup=inline_keyboard1)
    
     if user_id not in user_ids:
             user_ids.append(user_id)
@@ -65,11 +67,13 @@ async def start_handler(client: Client, message: Message):
                 json.dump(user_ids, file)
 
 
-#stats Countdown Command
+
+#◇────────────────────────────STATS COMMAND ─────────────────────────────◇
+
 @app.on_message(filters.command("stats"))
 async def start_handler(client: Client, message: Message):
     x = message.from_user.id
-    admin_user_ids=[1892297704]
+    admin_user_ids=[123456555] # ADD Admin user user id to here
     if x not in admin_user_ids:
         return
     else:
@@ -79,6 +83,8 @@ async def start_handler(client: Client, message: Message):
              #stats Countdown Command
         await message.reply_text(f"🙎‍♂️ All Users : {count}\n\n")
 
+
+#◇────────────────────────────Filter IP Addresses ─────────────────────────────◇
 
 @app.on_message(filters.text & filters.private)
 async def get_ip(client: Client, message: Message):
@@ -102,7 +108,7 @@ async def get_ip(client: Client, message: Message):
                  ip.details.get('country_currency', {}).get('code', None), ip.details.get('org', None),
                  ip.details.get('country_flag', {}).get('emoji', None)]
 
-            url = f"https://maps.locationiq.com/v3/staticmap?key=pk.14faf7968125736c93db98b1373fff47&center={x[7]},{x[8]}&zoom=16&size=600x600&markers=icon:large-blue-cutout%7C{x[7]},{x[8]}"
+            url = f"https://maps.locationiq.com/v3/staticmap?key=pk.{'YOUR API KEY'}&center={x[7]},{x[8]}&zoom=16&size=600x600&markers=icon:large-blue-cutout%7C{x[7]},{x[8]}"
             ip_data[message.chat.id] = {
             'ip_address': x[0]}
             try:
@@ -110,27 +116,25 @@ async def get_ip(client: Client, message: Message):
                 response = requests.get(url)
                 response.raise_for_status()  # Raise an exception for non-200 status codes
 
-                inline_keyboard = InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("🚧 Check IP Risk Level ☘️", callback_data="selection1")],
-                     [InlineKeyboardButton('🧩 Port Checker 🎲',callback_data="selection2"),InlineKeyboardButton('🌐 Find Host 🔎',callback_data="selection3")],
-                     [InlineKeyboardButton('✈️ Open Location Via Google Map 🌎‍',
-                                           url=f'https://www.google.com/maps/search/?api=1&query={x[7]}%2C{x[8]}')]])
+                inline_keyboard = InlineKeyboardMarkup([ [InlineKeyboardButton('✈️ Open Location Via Google Map 🌎‍',url=f'https://www.google.com/maps/search/?api=1&query={x[7]}%2C{x[8]}')]])
                 await app.send_photo(chat_id=message.chat.id,
                                photo=url,
                                caption=f"🍀 Location Found 🔎\n\n🛰IP Address ➤ {x[0]}\n🌎Country ➤ {x[1]}{x[12]}\n💠continent ➤{x[2]}\n🗺Province ➤ {x[3]}\n🏠City ➤ {x[4]}\n✉️ Postal Code ➤<code> {x[5]} </code>\n🗼Internet Provider ➤ {x[11]}\n🕢Time Zone➤ {x[6]}\n〽️Location ➤<code>{x[9]}</code>\n💰 Currency ➤ {x[10]} \n\n🔥Powered By @Codex_SL 🇱🇰",
                                reply_markup=inline_keyboard)
 
             except requests.exceptions.RequestException as e:
+                #IF API request limit Exceeded Switch to location sharing option
                 try:
+                    inline_keyboard1 = InlineKeyboardMarkup([[InlineKeyboardButton("IP Finder Bot", url="https://t.me/IPfinderobo_bot")]])
                     await app.send_location(chat_id=message.chat.id,  latitude=float(x[7]), longitude=float(x[8]))
-                    inline_keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("Check IP Risk Level ☘️", callback_data="selection1")],[InlineKeyboardButton('🧩 Port Checker 🎲',callback_data="selection2"),InlineKeyboardButton('🌐 Find Host 🔎',callback_data="selection3")],[InlineKeyboardButton('✈️ Open Location Via Google Map 🌎‍', url=f'https://www.google.com/maps/search/?api=1&query={x[7]}%2C{x[8]}')]])
-                    await app.send_message(chat_id=message.chat.id,text=f"🍀 Location Found 🔎\n\n🛰IP Address ➤ {x[0]}\n🌎Country ➤ {x[1]}{x[12]}\n💠continent ➤{x[2]}\n🗺Province ➤ {x[3]}\n🏠City ➤ {x[4]}\n✉️ Postal Code ➤<code> {x[5]} </code>\n🗼Internet Provider ➤ {x[11]}\n🕢Time Zone➤ {x[6]}\n〽️Location ➤<code>{x[9]}</code>\n💰 Currency ➤ {x[10]} \n\n🔥Powered By @Codex_SL 🇱🇰",reply_markup=inline_keyboard)         
+                    await app.send_message(chat_id=message.chat.id,text=f"🍀 Location Found 🔎\n\n🛰IP Address ➤ {x[0]}\n🌎Country ➤ {x[1]}{x[12]}\n💠continent ➤{x[2]}\n🗺Province ➤ {x[3]}\n🏠City ➤ {x[4]}\n✉️ Postal Code ➤<code> {x[5]} </code>\n🗼Internet Provider ➤ {x[11]}\n🕢Time Zone➤ {x[6]}\n〽️Location ➤<code>{x[9]}</code>\n💰 Currency ➤ {x[10]} \n\n🔥Powered By @Codex_SL 🇱🇰",reply_markup=inline_keyboard1)         
                 except:
-                    await client.forward_messages(from_chat_id=-1001611644771, message_ids=17,chat_id=message.chat.id)
+                    await app.send_message(chat_id=message.chat.id,text="Invalid ip or Private ip Address ❌")
     except ValueError:
         return
     
 
+#◇────────────────────────────Inline Mode ─────────────────────────────◇
 
 @app.on_inline_query()
 async def inline_query_handler(client: Client, query: InlineQuery):
