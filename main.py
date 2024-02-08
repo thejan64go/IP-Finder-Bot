@@ -35,6 +35,7 @@ app = Client(
 @app.on_message(filters.command("start")& filters.private)
 async def start_handler(client: Client, message: Message):
     user_id = message.from_user.id
+    inline_keyboard1 = InlineKeyboardMarkup([[InlineKeyboardButton("IP Finder Bot", url="https://t.me/IPfinderobo_bot")]])
     await app.send_photo(chat_id=message.chat.id,photo="https://te.legra.ph/file/c2e0b27bf45dcaa104633.jpg",caption='''
 👋 Hello There, 
 
@@ -56,7 +57,7 @@ async def start_handler(client: Client, message: Message):
 
 👨‍💻Powered By @Codex_SL 🇱🇰
 
-◇───────────────◇''')
+◇───────────────◇''',reply_markup=inline_keyboard1)
    
     if user_id not in user_ids:
             user_ids.append(user_id)
