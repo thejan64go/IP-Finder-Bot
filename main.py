@@ -107,6 +107,7 @@ async def get_ip(client: Client, message: Message):
                  ip.details.get('latitude', None), ip.details.get('longitude', None), ip.details.get('loc', None),
                  ip.details.get('country_currency', {}).get('code', None), ip.details.get('org', None),
                  ip.details.get('country_flag', {}).get('emoji', None)]
+            url1=None
 
             url = f"https://maps.locationiq.com/v3/staticmap?key=pk.{'YOUR API KEY'}&center={x[7]},{x[8]}&zoom=16&size=600x600&markers=icon:large-blue-cutout%7C{x[7]},{x[8]}"
             ip_data[message.chat.id] = {
@@ -118,7 +119,7 @@ async def get_ip(client: Client, message: Message):
 
                 inline_keyboard = InlineKeyboardMarkup([ [InlineKeyboardButton('✈️ Open Location Via Google Map 🌎‍',url=f'https://www.google.com/maps/search/?api=1&query={x[7]}%2C{x[8]}')]])
                 await app.send_photo(chat_id=message.chat.id,
-                               photo=url,
+                               photo=url1,
                                caption=f"🍀 Location Found 🔎\n\n🛰IP Address ➤ {x[0]}\n🌎Country ➤ {x[1]}{x[12]}\n💠continent ➤{x[2]}\n🗺Province ➤ {x[3]}\n🏠City ➤ {x[4]}\n✉️ Postal Code ➤<code> {x[5]} </code>\n🗼Internet Provider ➤ {x[11]}\n🕢Time Zone➤ {x[6]}\n〽️Location ➤<code>{x[9]}</code>\n💰 Currency ➤ {x[10]} \n\n🔥Powered By @Codex_SL 🇱🇰",
                                reply_markup=inline_keyboard)
 
