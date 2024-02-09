@@ -69,7 +69,7 @@ To use this bot, you need to have Python installed on your machine along with so
 - **Find IP Information**: Send any IP address 📧.
 - **Inline Query**: Type `@YourBotUsername IP_ADDRESS` in any chat 🔍.
 
-## 🌟 Original Bot
+## 🚀 Original Bot
 Access the original bot [here](https://t.me/IPfinderobo_bot).
 
 ---
