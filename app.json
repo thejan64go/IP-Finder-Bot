@@ -1,0 +1,27 @@
+{
+    "name": "IP Finder Telegram Bot",
+    "description": "A Telegram bot for finding IP information.",
+    "env": {
+      "API_ID": {
+        "description": "Your API ID for Telegram.",
+        "required": true
+      },
+      "API_HASH": {
+        "description": "Your API Hash for Telegram.",
+        "required": true
+      },
+      "BOT_TOKEN": {
+        "description": "Your Telegram Bot Token.",
+        "required": true
+      },
+      "IP_API": {
+        "description": "Your IPinfo Access Token.",
+        "required": true
+      }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ]
+  }
