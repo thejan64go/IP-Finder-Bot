@@ -68,7 +68,7 @@ To use this bot, you need to have Python installed on your machine along with so
     ```
 4. Run the bot 🏃‍♂️:
     ```
-    python your_script_name.py
+    python main.py
     ```
 
 ---
