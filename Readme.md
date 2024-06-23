@@ -30,6 +30,14 @@ https://maps.locationiq.com/v3/staticmap?key=YOUR_LOCATIONIQ_API_KEY&center=LATI
 ```
 *Replace `YOUR_LOCATIONIQ_API_KEY`, `LATITUDE`, and `LONGITUDE` with your LocationIQ API key and the geographical coordinates.*
 
+## 🚀 Deployment
+
+Set Environmentals variable before deploy. -  [Instructions](#-installation-steps)
+
+[![Deploy with heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/thejan64go/IP-Finder-Bot)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
 ## ⚙️ Installation
 
 To use this bot, you need to have Python installed on your machine along with some specific libraries. Follow the steps below to set up and run the bot:
